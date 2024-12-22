@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!-- create-tournament.component.html -->
+  <div>
+    <input [(ngModel)]="tournamentName" placeholder="Nom du tournoi" />
+    <input [(ngModel)]="numberOfPools" type="number" placeholder="Nombre de poules" />
+    <input [(ngModel)]="playersPerPool" type="number" placeholder="Nombre de joueurs par poule" />
+    <button (click)="generateTournament()">Générer le tournoi</button>
+
+    <div *ngFor="let pool of pools">
+      <h3>Poule {{ pool.id }}</h3>
+      <ul>
+        <li *ngFor="let player of pool.players">{{ player }}</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
