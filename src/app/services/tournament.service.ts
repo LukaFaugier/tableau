@@ -4,15 +4,32 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TournamentService {
-  createPools(numberOfPools: number, playersPerPool: number) {
-    const pools = [];
+  players: string[] = [];
+  pools: any[] = [];
+  tables: { [key: string]: number[] } = {};
+
+  constructor() {}
+
+  generatePools(players: string[], playersPerPool: number, numberOfPools: number) {
+    this.players = players;
+    this.pools = [];
+    const shuffledPlayers = [...players].sort(() => Math.random() - 0.5);
+
     for (let i = 0; i < numberOfPools; i++) {
-      const pool = {
-        id: i + 1,
-        players: Array.from({ length: playersPerPool }, (_, idx) => `Joueur ${i * playersPerPool + idx + 1}`)
-      };
-      pools.push(pool);
+      this.pools.push(shuffledPlayers.splice(0, playersPerPool));
     }
-    return pools;
+    return this.pools;
+  }
+
+  assignTables(poolName: string, tableNumbers: number[]) {
+    this.tables[poolName] = tableNumbers;
+  }
+
+  getPools() {
+    return this.pools;
+  }
+
+  getTables() {
+    return this.tables;
   }
 }

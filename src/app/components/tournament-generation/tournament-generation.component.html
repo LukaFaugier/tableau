@@ -1,0 +1,29 @@
+<div>
+  <h1>Génération de Tournoi</h1>
+  <div>
+    <input #playerInput type="text" placeholder="Ajouter un joueur" />
+    <button (click)="addPlayer(playerInput.value); playerInput.value = ''">Ajouter</button>
+  </div>
+  <div>
+    <label>
+      Joueurs par poule :
+      <input type="number" [(ngModel)]="playersPerPool" />
+    </label>
+    <label>
+      Nombre de poules :
+      <input type="number" [(ngModel)]="numberOfPools" />
+    </label>
+  </div>
+  <button (click)="generateTournament()">Générer les poules</button>
+  <button (click)="resetTournament()">Réinitialiser</button>
+
+  <div *ngIf="generatedPools.length > 0">
+    <h2>Poules Générées</h2>
+    <div *ngFor="let pool of generatedPools; let i = index">
+      <h3>Poule {{ i + 1 }}</h3>
+      <ul>
+        <li *ngFor="let player of pool">{{ player }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
